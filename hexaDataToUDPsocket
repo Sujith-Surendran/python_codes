@@ -1,0 +1,28 @@
+from socket import *
+import sys 
+
+def toSock(argm):
+    ## Set the socket parameters
+    host = '192.168.1.100'
+    port = 5500
+    #buf = 1024
+    addr = (host,port)
+
+    ## Create socket
+    TCPSock = socket(AF_INET,SOCK_DGRAM)
+
+    if not argm:
+        print ("No data")
+    else:
+        data = str.encode(argm)
+        if(TCPSock.sendto(data,addr)):
+            print ("Argument recevied ",data.decode())
+            
+    ## Close socket
+    print ("closing the connection")
+    TCPSock.close()
+
+if __name__ == "__main__":
+    hexdata = sys.argv[1]
+    toSock(hexdata)
+
