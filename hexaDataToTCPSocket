@@ -1,22 +1,17 @@
-import socket
-import binascii
+#!/usr/bin/env python3
+from socket import *
+import sys 
+def toSock(argm):
+    ## Set the socket parameters
+    host = '127.0.0.1' # Update it to your IP.
+    port = 5500
+    #If conn.recv() returns an empty bytes object, b'', then the client closed the connection and the loop is terminated. The with statement is used with conn to automatically close the socket at the end of the block.
+    with socket(AF_INET, SOCK_STREAM) as tcpsoc:
+        tcpsoc.connect((host, port)) #if connection is not ready then it will not connect
+        tcpsoc.send(str.encode(argm)) #we receiv it as string hence need to convert it into bytes
+        #can use to check if the data received at the receivers end
+        #data = tcpsoc.recv(1024)  
 
-def Main():
-    host = '192.168.2.3'
-    port = 8000
-
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect((host, port))
-    print 'connected'
-    message = '\x00\x01\x02\x01\x00\x12\x03\x6b\xd6\x6f\x01\x01\x00\x00\x02\x58\x69\x47\xae\x58\x69\x47\xae\x00'
-    s.send(message)
-    print 'sent command'
-
-    data = s.recv(1024)
-    s.close()
-    print type(data)
-
-    print binascii.hexlify(data)
-
-if __name__ == '__main__':
-    Main()
+if __name__ == "__main__":
+    hexdata = sys.argv[1] # when you run the script pass it as argument
+    toSock(hexdata)
