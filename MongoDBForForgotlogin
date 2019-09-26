@@ -1,0 +1,14 @@
+import pymongo
+
+def forgotLogin(emp,passw):
+    
+    client = pymongo.MongoClient("10.34.20.103",27017)
+    db = client.AoneDatabase
+    collection = db['userIdentity']
+    cursor = collection.find({"userID":emp,'password': passw})
+    for record in cursor: 
+        print(record) 
+
+emp ="Emp111"
+passw = "Passw"
+forgotLogin(emp,passw)
