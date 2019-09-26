@@ -1,0 +1,14 @@
+import pymongo
+client = pymongo.MongoClient("<URL>",<port>)
+db = client.<databaseName>
+collection = db['<collectionName>']
+
+register = {"userID":"Emp123",
+            "email":"Emp@gmail.com",
+            "phoneNumber":9048567986,
+            "password":"password"}
+
+if(collection.insert(register)):
+    print("The data has been added to Database")
+else:
+    print("Failed to add the data")
