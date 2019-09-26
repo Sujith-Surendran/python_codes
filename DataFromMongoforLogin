@@ -1,0 +1,15 @@
+import pymongo
+
+def login(emp,passw):
+    client = pymongo.MongoClient("10.34.20.103",27017)
+    db = client.AoneDatabase
+    collection = db['userIdentity']
+
+    db.test.find({"hello": "world"})
+    returnV = collection.find_one({"userID":emp,'password': passw})
+    return returnV
+
+# if returnV == None:
+#     print("Mismatching Found in UserName or Password")
+# else:
+#     print("Found")
